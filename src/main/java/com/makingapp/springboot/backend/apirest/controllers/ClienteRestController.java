@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
 
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class ClienteRestController {
 	
 	@GetMapping("/clientes/page/{page}/size/{size}")
 	public Page<Cliente> index(@PathVariable Integer page, @PathVariable Integer size){
-		Pageable pageable = PageRequest.of(page, size);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
 		return clienteService.findAll(pageable);
 	}
 	
@@ -148,7 +149,7 @@ public class ClienteRestController {
 			clienteActual.setNombre(cliente.getNombre());
 			clienteActual.setApellido(cliente.getApellido());
 			clienteActual.setEmail(cliente.getEmail());
-			//clienteActual.setCreateAt(cliente.getCreateAt());
+			clienteActual.setCreateAt(cliente.getCreateAt());
 			clienteUpdated = clienteService.save(clienteActual);
 		} catch (DataAccessException e) {
 			// TODO: handle exception
