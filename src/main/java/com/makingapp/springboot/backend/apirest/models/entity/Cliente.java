@@ -43,6 +43,9 @@ public class Cliente implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
 	
+	private String foto;
+
+	
 	/* codigo para ponerla fecha de creacion automaticamente
 	@PrePersist
 	public void prePersist() {
@@ -89,6 +92,16 @@ public class Cliente implements Serializable {
 		this.createAt = createAt;
 	}
 	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+
+
 	/**
 	 * 
 	 */
