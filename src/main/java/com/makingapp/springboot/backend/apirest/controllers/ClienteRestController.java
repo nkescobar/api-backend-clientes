@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,6 +60,7 @@ public class ClienteRestController {
 		return clienteService.findAll(pageable);
 	}
 	
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@GetMapping("/clientes/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		Cliente cliente = null;		
@@ -88,6 +90,7 @@ public class ClienteRestController {
 
 	}
 	
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/clientes")
 	public ResponseEntity<?> create(@Valid @RequestBody Cliente cliente, BindingResult result) {
 		//cliente.setCreateAt(new Date());
@@ -127,7 +130,8 @@ public class ClienteRestController {
 		response.put("response", clienteNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
+
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/clientes/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Cliente cliente, BindingResult result, @PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
@@ -173,7 +177,7 @@ public class ClienteRestController {
 
 	}
 	
-	
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/clientes/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
@@ -197,6 +201,7 @@ public class ClienteRestController {
 
 	}
 	
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@PostMapping("/clientes/upload")
 	public ResponseEntity<?> upload(
 			@RequestParam("archivo") MultipartFile archivo,
@@ -257,6 +262,7 @@ public class ClienteRestController {
 		return new ResponseEntity<Resource>(recurso,cabecera, HttpStatus.OK);
 	}
 	
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/clientes/regiones")
 	public List<Region> listarRegiones(){
 		return clienteService.findAllRegiones();

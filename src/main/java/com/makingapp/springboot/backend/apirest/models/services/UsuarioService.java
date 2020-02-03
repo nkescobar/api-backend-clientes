@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,6 +24,7 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 
 	private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 	
+	@Autowired
 	private IUsuarioDao usuarioDao;
 	
 	@Override
@@ -48,7 +50,6 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public Usuario findByUsername(String username) {
-		// TODO Auto-generated method stub
 		return usuarioDao.findByUsername(username);
 	}
 
