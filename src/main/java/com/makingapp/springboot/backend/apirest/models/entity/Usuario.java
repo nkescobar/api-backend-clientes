@@ -37,6 +37,7 @@ public class Usuario implements Serializable{
 	
 	@Column(unique=true)
 	private String email;
+	
 	private Boolean enabled;
 	//unir el usuario con el rol crea una tabla intermedia entre las dos
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
